@@ -1,9 +1,9 @@
 //* Functions for use in JavaScript
-//* Use the VSCode "Better Comments" extension for better viewing
+//* Use the VSCode "Better Comments" extension for enhanced viewing
 
-/////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 
-//* Notes / Bloqs
+//*** Notes / Bloqs ***
 
 // duplicates notes and makes them not real - useful for hitboxing
 // fakeNotes("fake", 20, 30);
@@ -21,7 +21,7 @@ function fakeNotes(track, p1, p2) {
     });
 };
 
-//* Walls / Obstacles
+//*** Walls / Obstacles ***
 
 // generates a regular polygon
 // genPolygon("octagon", 0, 2, 20, 3, 8, 0.2); - creates an octagon at (0, 2) at beat 20 with radius 3 and thickness 0.2
@@ -62,7 +62,7 @@ function genPolygon(track, xPos, yPos, time, radius, sides, thic) {
     };
 };
 
-//* Other Stuff
+//*** Other Stuff ***
 
 // finds the duration of something after a BPM change
 // dur(170,1); - the new BPM is 170, and this gives what a duration of 1 should be
