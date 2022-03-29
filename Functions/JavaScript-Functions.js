@@ -25,6 +25,7 @@ function fakeNotes(track, p1, p2) {
 
 // generates a regular polygon
 // genPolygon("octagon", 0, 2, 20, 3, 8, 0.2); - creates an octagon at (0, 2) at beat 20 with radius 3 and thickness 0.2
+// this is based off a SW script made by iswimfly but for the life of me I can't find it. if you see it please notify me <3
 function genPolygon(track, xPos, yPos, time, radius, sides, thic) {
     if (typeof thic == "undefined") {
         thic = 0.3;
