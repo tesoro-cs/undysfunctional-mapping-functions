@@ -5,8 +5,13 @@
 
 //*** Notes / Bloqs ***
 
-// duplicates notes and makes them not real - useful for hitboxing
-// fakeNotes("fake", 20, 30);
+/**
+ * Duplicates notes and makes them not real, useful for hitboxing
+ * @param {string} track Track of the fake notes
+ * @param {number} p1 Starting beat
+ * @param {number} p2 Ending beat
+ * @example fakeNotes("fakes", 20, 30);
+ */
 function fakeNotes(track, p1, p2) {
     let realNotes = _notes.filter(n => n._time >= p1 && n._time <= p2);
     realNotes.forEach(note => {
@@ -23,13 +28,20 @@ function fakeNotes(track, p1, p2) {
 
 //*** Walls / Obstacles ***
 
-// generates a regular polygon
-// genPolygon("octagon", 0, 2, 20, 3, 8, 0.2); - creates an octagon at (0, 2) at beat 20 with radius 3 and thickness 0.2
-// this is based off a SW script made by iswimfly but for the life of me I can't find it. if you see it please notify me <3
+/**
+ * Generates a regular polygon
+ * @note **This is based off a SW script made by iswimfly but for the life of me I can't find it. If you see it please notify me <3**
+ * @param {string} track Track of the polygon
+ * @param {number} xPos X offset of the polygon
+ * @param {number} yPos Y offset of the polygon
+ * @param {number} time Time of polygon
+ * @param {number} radius Radius of polygon
+ * @param {number} sides The number of sides the polygon has
+ * @param {number} thic How thick the sides are
+ * @example genPolygon("octagon", 0, 2, 20, 3, 8, 0.2); // Creates an octagon at (0, 2) at beat 20 with radius 3, thickness 0.2, and track "octagon"
+ */
 function genPolygon(track, xPos, yPos, time, radius, sides, thic) {
-    if (typeof thic == "undefined") {
-        thic = 0.3;
-    };
+    if (typeof thic == "undefined") {thic = 0.3};
     let angle = -90;
     let length = round((2 * radius * Math.tan(Math.PI / sides)), 4);
     // pay attention in geometry class
@@ -62,16 +74,46 @@ function genPolygon(track, xPos, yPos, time, radius, sides, thic) {
     };
 };
 
-//*** Other Stuff ***
+//*** General Use ***
 
-// finds the duration of something after a BPM change
-// dur(170,1); - the new BPM is 170, and this gives what a duration of 1 should be
-const bpm = 150; //? if you're using a template, you could have this defined already
-const dur = (newBPM, duration) => bpm / newBPM * duration;
+/**
+ * Returns an array of points to make something shake
+ * @param {number} power How far the notes will move during shake
+ * @param {number} speed Time between each point in the shake
+ * @returns {Array} Array of points to shake things
+ */
+function shake(power, speed) {
+    let shakePoints = [];
+    for (let t = 0; t <= 1; t += quick * 4) {
+        shakePoints.push(
+            [power, power, 0, t], [-power, -power, 0, t + speed], [-power, power, 0, t + speed * 2], [power, -power, 0, t + speed * 3]
+        )
+    }
+    return shakePoints;
+}
 
-// gets a random color for ya
+/**
+ * Gets a random color
+ * @returns {Array} Array of three random 0-1 values
+ */
 const randomColor = () => [Math.random(), Math.random(), Math.random()];
 
-// chance out of 1 that something will happen
-// percentChance(0.75); - 75% chance of returning true
+//*** Other Stuff ***
+
+const bpm = 150; //? if you're using a template, you could have this defined already
+/**
+ * Finds the duration of something after a BPM change
+ * @param {number} newBPM The new BPM from a BPM change
+ * @param {number} duration Duration of how long it *should* be
+ * @returns {number} Duration for the starting BPM
+ * @example dur(170,1); // The new BPM is 170, and this gives what a duration of 1 should be
+ */
+const dur = (newBPM, duration) => bpm / newBPM * duration;
+
+/**
+ * Chance that something will happen
+ * @param {number} percent The percentange of returning true (0-1)
+ * @returns {boolean} If the {@link percent} was hit
+ * @example percentChance(0.75); // 75% chance of returning true
+ */
 const percentChance = (percent) => Math.random() <= percent;
