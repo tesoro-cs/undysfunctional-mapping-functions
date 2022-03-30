@@ -30,7 +30,6 @@ function fakeNotes(track, p1, p2) {
 
 /**
  * Generates a regular polygon
- * @note **This is based off a SW script made by iswimfly but for the life of me I can't find it. If you see it please notify me <3**
  * @param {string} track Track of the polygon
  * @param {number} xPos X offset of the polygon
  * @param {number} yPos Y offset of the polygon
