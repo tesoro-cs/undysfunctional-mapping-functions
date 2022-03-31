@@ -76,16 +76,32 @@ function genPolygon(track, xPos, yPos, time, radius, sides, thic) {
 //*** General Use ***
 
 /**
- * Returns an array of points to make something shake
+ * Returns an array of points to make something shake with position
  * @param {number} power How far the notes will move during shake
  * @param {number} speed Time between each point in the shake
  * @returns {Array} Array of points to shake things
  */
-function shake(power, speed) {
+function shakePos(power, speed) {
     let shakePoints = [];
     for (let t = 0; t <= 1; t += quick * 4) {
         shakePoints.push(
             [power, power, 0, t], [-power, -power, 0, t + speed], [-power, power, 0, t + speed * 2], [power, -power, 0, t + speed * 3]
+        )
+    }
+    return shakePoints;
+}
+
+/**
+ * Returns an array of points to make something shake with rotation
+ * @param {number} power How much the notes will rotate during shake
+ * @param {number} speed Time between each point in the shake
+ * @returns {Array} Array of points to shake things
+ */
+ function shakeRot(power, speed) {
+    let shakePoints = [];
+    for (let t = 0; t <= 1; t += quick * 4) {
+        shakePoints.push(
+            [power, power, power, t], [-power, -power, -power, t + speed], [-power, power, power, t + speed * 2], [power, -power, -power, t + speed * 3]
         )
     }
     return shakePoints;
