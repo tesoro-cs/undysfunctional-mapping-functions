@@ -1,5 +1,5 @@
 # undysfunctional-mapping-functions
-*A pile of JS functions for use in Beat Saber NE maps.*
+*A pile of functions for use in Beat Saber NE maps.*
 
 ---
 
@@ -9,4 +9,3 @@
 * If you want more functions in the meantime, you can look at some other templates:
     * [Mawntee's](https://github.com/Mawntee/Noodle-Extensions-Template-FIle) (JavaScript)
     * [megamaz's](https://github.com/megamaz/python-noodleExtensions-template) (Python)
-    * [thelightdesigner's](https://github.com/thelightdesigner/NoodleTemplate) (C#)
