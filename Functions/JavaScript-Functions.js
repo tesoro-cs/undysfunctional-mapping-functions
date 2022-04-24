@@ -26,6 +26,79 @@ function fakeNotes(track, p1, p2) {
     });
 };
 
+/**
+ * 
+ * @param {*} p1 Starting beat
+ * @param {*} p2 Ending beat
+ * @param {*} potentialOffset Offset of the note
+ * @param {*} index0 Track of notes with _lineIndex 0
+ * @param {*} index1 Track of notes with _lineIndex 1
+ * @param {*} index2 Track of notes with _lineIndex 2
+ * @param {*} index3 Track of notes with _lineIndex 3
+ * @returns {Array} Array of notes affected 
+ * @example trackOnNotesBetweenLineIndexSep(4, 6, 0, "undefined", "middleLeft", "middleRight", "undefined"); // Sets the middle left notes to track "middleLeft" and the middle right notes to track "middleRight" between beats 4 and 6
+ */
+function trackOnNotesBetweenLineIndexSep(
+    p1,
+    p2,
+    potentialOffset,
+    index0,
+    index1,
+    index2,
+    index3
+) {
+    filterednotes = _notes.filter(n => n._time >= p1 && n._time <= p2);
+    filterednotes.forEach(object => {
+        if (object._lineIndex == 0 && typeof index0 !== "undefined") {
+            object._customData._track = index0;
+        };
+        if (object._lineIndex == 1 && typeof index1 !== "undefined") {
+            object._customData._track = index1;
+        };
+        if (object._lineIndex == 2 && typeof index2 !== "undefined") {
+            object._customData._track = index2;
+        };
+        if (object._lineIndex == 3 && typeof index3 !== "undefined") {
+            object._customData._track = index3;
+        };
+        // why this here tho
+        if (typeof potentialOffset !== "undefined") {
+            object._customData._noteJumpStartBeatOffset = potentialOffset;
+        }
+    });
+    return filterednotes;
+}
+
+/**
+ * Gives notes the _disableNoteGravity property between beats
+ * @param {*} p1 Starting beat
+ * @param {*} p2 Ending beat
+ * @returns {Array} Array of notes affected
+ * @example disableNoteGravity(4, 6); // Disables gravity on notes between beats 4 and 6
+ */
+function noGravityOnNotesBetween(p1, p2) {
+    filterednotes = _notes.filter(n => n._time >= p1 && n._time <= p2);
+    filterednotes.forEach(object => {
+        object._customData._disableNoteGravity = true;
+    });
+    return filterednotes;
+}
+
+/**
+ * Gives notes the _disableNoteLook property between beats
+ * @param {*} p1 Starting beat
+ * @param {*} p2 Ending beat
+ * @returns {Array} Array of notes affected
+ * @example disableNoteLook(4, 6); // Disables look on notes between beats 4 and 6
+ */
+function noRotateOnNotesBetween(p1, p2) {
+    filterednotes = _notes.filter(n => n._time >= p1 && n._time <= p2);
+    filterednotes.forEach(object => {
+        object._customData._disableNoteLook = true;
+    });
+    return filterednotes;
+}
+
 //*** Walls / Obstacles ***
 
 /**
@@ -71,6 +144,31 @@ function genPolygon(track, xPos, yPos, time, radius, sides, thic) {
         });
         angle += 360 / sides;
     };
+};
+
+/**
+ * Sets obstacles with custom data to _fake true and _interactable false between beats, useful for lowering lag
+ * @param {*} p1 Starting beat
+ * @param {*} p2 Ending beat
+ * @returns {Array} Array of obstacles affected
+ * @example fakeObstacles(4, 6); // Sets obstacles with custom data between beats 4 and 6 to be fake and non interactable
+ * @example fakeObstacles(); // Sets all obstacles with custom data to be fake and non interactable
+ */
+function fakeObstacles(p1, p2) {
+    if (typeof p1 !== "undefined") {
+        let filteredObstacles = _obstacles.filter(n => n._time >= p1 && n._time <= p2);
+        filteredObstacles.forEach(object => {
+            object._customData._fake = true;
+            object._customData._interactable = false;
+        });
+        return filteredObstacles;
+    } else {
+        _obstacles.forEach(object => {
+            object._customData._fake = true;
+            object._customData._interactable = false;
+        });
+        return _obstacles;
+    }
 };
 
 //*** General Use ***
